@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+    <a href="{% url 'products:product_list' %}">&larr; Back to all products</a>
+    <h1>{{ product.name }}</h1>
+    {% for img in product.images.all %}
+        <img src="{{ img.image.url }}" width="300" style="border-radius: 8px;">
+    {% endfor %}
+    <p>{{ product.description }}</p>
+    <p><strong>Price:</strong> ₹{{ product.price }}</p>
+    <p><strong>Stock:</strong> {{ product.stock }}</p>
+    <form action="{% url 'products:cart_add' product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Add to Cart</button>
+    </form>
+{% endblock %}

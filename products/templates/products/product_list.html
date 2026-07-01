@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Our Products</h2>
+
+<!-- Category Filter Starts Here -->
+<form method="get" class="mb-3">
+
+    <select name="category" class="form-select" onchange="this.form.submit()">
+
+        <option value="">All Categories</option>
+
+        {% for cat in categories %}
+
+        <option value="{{ cat.id }}"
+        {% if selected_category == cat.id|stringformat:"s" %}
+            selected
+        {% endif %}
+        >
+            {{ cat.name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+</form>
+<!-- Category Filter Ends Here -->
+
+<!-- Search Box -->
+<form method="get" class="mb-4">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search idols..."
+            value="{{ query|default:'' }}"
+        >
+
+        <button class="btn btn-dark">
+            Search
+        </button>
+
+    </div>
+
+</form>
+
+<div class="row">
+
+{% for product in products %}
+
+<div class="col-md-3 mb-4">
+
+    <div class="card h-100">
+
+        {% if product.images.first %}
+            <img src="{{ product.images.first.image.url }}" class="card-img-top product-img">
+        {% endif %}
+
+        <div class="card-body">
+
+            <h5>{{ product.name }}</h5>
+
+            <p class="text-success fw-bold">
+                ₹{{ product.price }}
+            </p>
+
+            <a href="{% url 'products:product_detail' product.slug %}" class="btn btn-primary w-100">
+                View
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No products found.</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

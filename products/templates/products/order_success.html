@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Order Successful{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow text-center p-5">
+
+        <h1 class="text-success">🎉 Thank You!</h1>
+
+        <h3>Your order has been placed successfully.</h3>
+
+        <hr>
+
+        <h4>Order ID: #{{ order.id }}</h4>
+
+        <h5>Total Amount: ₹{{ order.total_price }}</h5>
+
+        <br>
+
+        <a href="/products/" class="btn btn-primary btn-lg">
+            Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
